@@ -3,12 +3,14 @@ package at.cgsit.train.java.mv.firma.implementierung;
 import at.cgsit.train.java.mv.firma.Firma;
 import at.cgsit.train.java.mv.firma.schnittstellen.MitarbeiterManagement;
 import at.cgsit.train.java.mv.firma.schnittstellen.PersonManager;
+import at.cgsit.train.java.mv.personen.Abteilung;
 import at.cgsit.train.java.mv.personen.Mitarbeiter;
 import at.cgsit.train.java.mv.personen.Person;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 /**
@@ -87,31 +89,43 @@ public class FirmaImplStream extends Firma implements PersonManager, Mitarbeiter
 
   // Listet alle Mitarbeiter einer bestimmten Abteilung auf
   @Override
-  public List<Mitarbeiter> mitarbeiterNachAbteilung(Mitarbeiter.Beschaeftigungsart art) {
+  public List<Mitarbeiter> mitarbeiterEinerAbteilung(Abteilung abteilung) {
     return personen.stream()
         .filter(person -> person instanceof Mitarbeiter)
         .map(person -> (Mitarbeiter) person)
-        .filter(mitarbeiter -> mitarbeiter.getBeschaeftigungsart() == art)
+        .filter(mitarbeiter -> mitarbeiter.getAbteilung() == abteilung)
         .collect(Collectors.toList());
   }
+
 
   // Berechnet das durchschnittliche Gehalt aller Mitarbeiter
   @Override
   public double durchschnittsGehalt() {
-    return personen.stream()
-        .filter(person -> person instanceof Mitarbeiter)
-        .mapToDouble(person -> ((Mitarbeiter) person).getGehalt())
-        .average()
-        .orElse(0.0);
+
+    OptionalDouble durchschnitt = personen.stream()
+        // 1. Filtern: Wähle nur Personen aus, die Mitarbeiter sind
+        .filter(p -> p instanceof Mitarbeiter)
+
+        // 2. Mappen: Konvertiere den Stream von Person/Mitarbeiter zu einem Stream von double (Gehältern)
+        // Hier wird der Mitarbeiter-Typ benötigt, um getGehalt() aufzurufen
+        .mapToDouble(p -> ((Mitarbeiter) p).getGehalt())
+
+        // 3. Reduzieren: .average nimmt den Stream an Double Werte
+        // und summiert auf, und diviert durch die Anzahl
+        // Das Ergebnis ist der arithmetische Mittelwert (Durchschnitt).
+        .average();
+
+    // 4. Resultat: Gib den Durchschnitt zurück, oder 0.0, falls kein Mitarbeiter gefunden wurde
+    return durchschnitt.orElse(0.0);
   }
 
   // Zählt die Anzahl von Mitarbeitern pro Beschäftigungsart
-  @Override
-  public Map<Mitarbeiter.Beschaeftigungsart, Long> anzahlMitarbeiterProAbteilung() {
+
+  public Map<Abteilung, Long> anzahlMitarbeiterProAbteilung() {
     return personen.stream()
         .filter(person -> person instanceof Mitarbeiter)
         .map(person -> (Mitarbeiter) person)
-        .collect(Collectors.groupingBy(Mitarbeiter::getBeschaeftigungsart, Collectors.counting()));
+        .collect(Collectors.groupingBy(Mitarbeiter::getAbteilung, Collectors.counting()));
   }
 
 

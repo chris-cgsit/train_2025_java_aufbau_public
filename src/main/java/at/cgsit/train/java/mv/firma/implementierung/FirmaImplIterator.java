@@ -1,11 +1,11 @@
 package at.cgsit.train.java.mv.firma.implementierung;
 
 import at.cgsit.train.java.mv.firma.Firma;
+import at.cgsit.train.java.mv.personen.Abteilung;
 import at.cgsit.train.java.mv.personen.Mitarbeiter;
 import at.cgsit.train.java.mv.personen.Person;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Implementierung mit Schleifen und Iteratoren.
@@ -84,10 +84,10 @@ public class FirmaImplIterator extends Firma {
 
 
   @Override
-  public List<Mitarbeiter> mitarbeiterNachAbteilung(Mitarbeiter.Beschaeftigungsart art) {
+  public List<Mitarbeiter> mitarbeiterEinerAbteilung(Abteilung abteilung) {
     List<Mitarbeiter> result = new ArrayList<>();
 
-    if (art == null) {
+    if (abteilung == null) {
       return result;
     }
 
@@ -96,7 +96,7 @@ public class FirmaImplIterator extends Firma {
       // wir prüfen hier ob das element aus der Liste p auch ein Miterbeiter ist
       // er könnte ja auch ein Kunde sein. aber wenn er instanceOf Mitarbeiter ist dann prüfen wir
       // sein enum Beschaeftigungsart
-      if (p instanceof Mitarbeiter m && m.getBeschaeftigungsart() == art) {
+      if (p instanceof Mitarbeiter m && m.getAbteilung() == abteilung) {
         result.add(m);
       }
     }
@@ -104,15 +104,64 @@ public class FirmaImplIterator extends Firma {
     return result;
   }
 
-
-
   @Override
   public double durchschnittsGehalt() {
-    return 0;
+    double gesamtGehalt = 0.0;
+    int mitarbeiterAnzahl = 0;
+
+    // Iteriere über die gesamte Liste der Personen
+    for (Person p : personen) {
+
+      // Prüfe, ob die Person ein Mitarbeiter ist (Downcasting nötig)
+      // hier nützen wir direkt die pattern variable mitgarbeiter bei istance of
+      if (p instanceof Mitarbeiter mitarbeiter) {
+
+        // Addiere das Gehalt zur Gesamtsumme
+        gesamtGehalt += mitarbeiter.getGehalt();
+
+        // Erhöhe den Zähler für die Mitarbeiter
+        mitarbeiterAnzahl++;
+      }
+    }
+
+    // Vermeide Division durch Null: Wenn keine Mitarbeiter gefunden wurden, gib 0.0 zurück
+    if (mitarbeiterAnzahl == 0) {
+      return 0.0;
+    }
+
+    // Berechne den Durchschnitt
+    return gesamtGehalt / mitarbeiterAnzahl;
   }
 
+// Angenommen, diese Methode befindet sich in einer Klasse,
+// die Zugriff auf 'personen' hat (z.B. MitarbeiterService)
+
   @Override
-  public Map<Mitarbeiter.Beschaeftigungsart, Long> anzahlMitarbeiterProAbteilung() {
-    return Map.of();
+  public Map<Abteilung, Long> anzahlMitarbeiterProAbteilung() {
+    // 1. Initialisieren Sie die HashMap zur Speicherung der Ergebnisse
+    Map<Abteilung, Long> ergebnisMap = new HashMap<>();
+
+    // 2. Iterieren Sie über die gesamte Liste der Personen
+    for (Person p : personen) {
+
+      // 3. Prüfen Sie, ob die Person ein Mitarbeiter ist (Downcasting nötig)
+      if (p instanceof Mitarbeiter) {
+        Mitarbeiter mitarbeiter = (Mitarbeiter) p;
+
+        // 4. Holen Sie die Abteilung des Mitarbeiters
+        Abteilung abteilung = mitarbeiter.getAbteilung(); // Angenommen, es gibt eine getAbteilung()-Methode
+
+        // 5. Zählen: Holen Sie den aktuellen Zählerstand für diese Abteilung (oder 0, falls nicht vorhanden)
+        Long aktuelleAnzahl = ergebnisMap.getOrDefault(abteilung, 0L);
+
+        // 6. Erhöhen Sie den Zählerstand um 1 und speichern Sie ihn zurück
+        ergebnisMap.put(abteilung, aktuelleAnzahl + 1);
+      }
+    }
+
+    // 7. Geben Sie die gefüllte Map zurück
+    return ergebnisMap;
   }
+
+
 }

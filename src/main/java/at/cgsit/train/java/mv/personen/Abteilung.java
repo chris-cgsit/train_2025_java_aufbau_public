@@ -1,5 +1,8 @@
 package at.cgsit.train.java.mv.personen;
 
+// während beschäftigungsart eher nur dem mitarbeiter zurechenbar ist
+// wrid das enum Abteilung auch in anderen Klassen benötigt und verwendet
+// abteilungen sind als Enum übergreifend daher hier extern sinnoller
 public enum Abteilung {
 
     MARKETING(0, "Marketing"),
