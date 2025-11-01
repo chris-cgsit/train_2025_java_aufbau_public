@@ -11,59 +11,8 @@ import java.util.stream.Collectors;
  * Klasse Firma verwaltet eine Liste von Personen (Mitarbeiter und Kunden).
  * Ermöglicht das Hinzufügen, Entfernen, Suchen und Auswerten von Personen.
  */
-public class Firma implements PersonManager {
-    private final List<Person> personen = new ArrayList<>(); // Liste von Personen
+public abstract class Firma extends FirmaBase implements PersonManager {
 
-    // Fügt eine neue Person zur Liste hinzu
-    public void addPerson(Person p) {
-        personen.add(p);
-    }
-
-    /**
-     * Entfernt eine Person anhand ihrer ID mit der Verwendung von Streams.
-     *
-     * @param id Die ID der Person, die entfernt werden soll.
-     * @return true, wenn die Person erfolgreich entfernt wurde, ansonsten false.
-     */
-    public boolean removeByIdWithStreams(String id) {
-        int initialSize = personen.size();
-        personen.removeIf(person -> person.getId().equals(id));
-        return initialSize > personen.size();
-    }
-
-    /**
-     * Entfernt eine Person anhand ihrer ID mit einem Iterator.
-     *
-     * @param id Die ID der Person, die entfernt werden soll.
-     * @return true, wenn die Person erfolgreich entfernt wurde, ansonsten false.
-     */
-    public boolean removeByIdWithIterator(String id) {
-        Iterator<Person> iterator = personen.iterator();
-        while (iterator.hasNext()) {
-            Person person = iterator.next();
-            if (person.getId().equals(id)) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Entfernt eine Person anhand ihrer ID durch manuelles Durchlaufen der Liste.
-     *
-     * @param id Die ID der Person, die entfernt werden soll.
-     * @return true, wenn die Person erfolgreich entfernt wurde, ansonsten false.
-     */
-    public boolean removeByIdWithManualIteration(String id) {
-        for (int i = 0; i < personen.size(); i++) {
-            if (personen.get(i).getId().equals(id)) {
-                personen.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
 
     // Sucht eine Person anhand ihrer ID
     public Optional<Person> findById(String id) {
@@ -80,6 +29,7 @@ public class Firma implements PersonManager {
                                          .contains(teil.toLowerCase()))
                        .collect(Collectors.toList());
     }
+
 
     // Listet alle Mitarbeiter einer bestimmten Abteilung auf
     public List<Mitarbeiter> mitarbeiterNachAbteilung(Mitarbeiter.Beschaeftigungsart art) {

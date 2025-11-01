@@ -17,21 +17,6 @@ public interface PersonManager {
      */
     void addPerson(Person p);
 
-    /**
-     * Entfernt eine Person anhand ihrer ID.
-     *
-     * @param id Die ID der zu entfernenden Person.
-     * @return true, wenn eine Person mit der ID entfernt wurde, ansonsten false.
-     */
-    boolean removeByIdWithStreams(String id);
-
-    /**
-     * Entfernt eine Person anhand ihrer ID mithilfe eines Iterators.
-     *
-     * @param id Die ID der zu entfernenden Person.
-     * @return true, wenn eine Person mit der ID entfernt wurde, ansonsten false.
-     */
-    boolean removeByIdWithIterator(String id);
 
     /**
      * Entfernt eine Person anhand ihrer ID durch manuelles Iterieren über die Liste.
@@ -39,7 +24,7 @@ public interface PersonManager {
      * @param id Die ID der zu entfernenden Person.
      * @return true, wenn eine Person mit der ID entfernt wurde, ansonsten false.
      */
-    boolean removeByIdWithManualIteration(String id);
+    boolean removeById(String id);
 
     /**
      * Sucht eine Person anhand ihrer ID.
