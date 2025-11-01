@@ -27,7 +27,7 @@ for (int i = 0; i < personen.size(); i++) {
 
     if (p.shouldBeDeleted()) {
         personen.remove(i);
-        i--; // wichtig bei Remove!
+        i--; // wichtig bei Remove aber so zu fehleranfällig!
     }
 }
 ```
@@ -62,6 +62,24 @@ for (Person p : personen) {
 **Nachteile**
 
 * ❌ Kein Entfernen oder Hinzufügen möglich (`ConcurrentModificationException`)
+
+### Erklärung zum Iterator in der Enhanced for Loop:
+
+Warum der Enhanced for-Loop (for-each) beim Entfernen eine Exception wirft
+
+- Der for-each-Loop verwendet intern automatisch einen Iterator, auch wenn man ihn im Code nicht sieht.
+Wenn man jedoch direkt personen.remove(p) aufruft, wird die Liste außerhalb des Iterators verändert.
+
+- Der versteckte Iterator läuft intern über die Liste.
+- Du rufst aber nicht iterator.remove() auf, sondern personen.remove() direkt.
+- Dadurch ändert sich die interne Struktur der Liste (z. B. Größe, Speicher, modCount in ArrayList).
+- Beim nächsten Zugriff merkt der Iterator, dass sich die Liste außerhalb seiner Kontrolle verändert hat,
+und wirft eine ConcurrentModificationException.
+
+Kurz gesagt:
+- Der for-each-Loop ist nur zum Lesen gedacht —
+- nicht zum Entfernen oder Ändern von Elementen.
+
 
 ---
 
