@@ -1,4 +1,4 @@
-[![Java CI with Maven](https://github.com/chris-cgsit/train_2025_java_aufbau_bsp/.github/workflows/maven.yml/badge.svg)](https://github.com/chris-cgsit/train_2025_java_aufbau_bsp/.github/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/chris-cgsit/train_2025_java_aufbau_bsp/actions/workflows/maven.yml/badge.svg)](https://github.com/chris-cgsit/train_2025_java_aufbau_bsp/actions/workflows/maven.yml)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 
