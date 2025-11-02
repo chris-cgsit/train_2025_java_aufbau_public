@@ -1,6 +1,6 @@
-# 🧑‍💼 Hausübung: Mitarbeiterverwaltung
+# Hausübung: Mitarbeiterverwaltung
 
-## 🎯 Ziel
+## Ziel
 
 Implementiere eine kleine **Personenverwaltung für eine Firma**.
 
@@ -9,7 +9,7 @@ Es werden verschiedene Typen von Personen verwaltet, die gemeinsame Eigenschafte
 
 ---
 
-## 🧱 Aufgabenbeschreibung
+## Aufgabenbeschreibung
 
 ### 1. Klassenhierarchie
 
@@ -40,14 +40,14 @@ Erstelle eine Klasse `Firma`, die alle Personen verwalten kann.
 
 **Pflichtmethoden:**
 ```java
-void addPerson(Person p)
-boolean removeById(String id)
-Optional<Person> findById(String id)
-List<Person> findByName(String teil)
-List<Mitarbeiter> mitarbeiterNachAbteilung(String abt)
-double durchschnittsGehalt() // nur für Mitarbeiter
-Map<String, Long> anzahlMitarbeiterProAbteilung()
-double gesamtUmsatzKunden()
+    void addPerson(Person p)
+    boolean removeById(String id)
+    Optional<Person> findById(String id)
+    List<Person> findByName(String teil)
+    List<Mitarbeiter> mitarbeiterNachAbteilung(String abt)
+    double durchschnittsGehalt() // nur für Mitarbeiter
+    Map<String, Long> anzahlMitarbeiterProAbteilung()
+    double gesamtUmsatzKunden()
 
 ```
 
@@ -58,15 +58,11 @@ um die wichtigsten Funktionen zu demonstrieren (z. B. Personen hinzufügen, such
  
 ## Hinweise zur Umsetzung
 
-Nutze sinnvolle Default-Werte oder Konstruktoren
-
-IDs können automatisch mit UUID.randomUUID() vergeben werden
-
-Beachte sauberen Umgang mit null (z. B. Objects.requireNonNull)
-
-Gib Listen z. B. mit System.out.println() oder for-Schleifen aus
-
-Verwende List, Map, Optional aus java.util
+- Nutze sinnvolle Default-Werte oder Konstruktoren
+- IDs können automatisch mit UUID.randomUUID() vergeben werden
+- Beachte sauberen Umgang mit null (z. B. Objects.requireNonNull)
+- Gib Listen z. B. mit System.out.println() oder for-Schleifen aus
+- Verwende List, Map, Optional aus java.util
 
 ##  Bonusideen (optional)
 
@@ -74,7 +70,7 @@ Erweitere das Projekt mit zusätzlichen Funktionen oder Techniken:
 
 ##  Thema und weitere Ideen
 
-| 🧩 Thema | 💡 Idee |
+| Thema | 💡 Idee |
 |-----------|----------|
 | **Validierung** | Überprüfe z. B. E-Mail-Format, Gehalt > 0, Umsatz ≥ 0 |
 | **Persistenz** | Export/Import der Daten als CSV oder JSON |
@@ -84,8 +80,6 @@ Erweitere das Projekt mit zusätzlichen Funktionen oder Techniken:
 | **Enums** | Definiere `Abteilung` oder `Beschäftigungsart` als `enum` |
 | **Sortierung** | Sortiere Personen nach Nachname, Abteilung oder Umsatz |
 | **Statistik** | Zeige Durchschnittswerte, Summen oder Anzahlen an |
-
-
 
 
 # Lernziele
